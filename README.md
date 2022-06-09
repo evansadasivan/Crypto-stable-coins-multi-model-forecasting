@@ -39,8 +39,7 @@ Northwestern Bootcamp Project 2 - Evan Sadasivan, Avinash Patel and Christine Na
             <!-- (Remember to also setup a dot env file containing api keys)  -->
 
 * ###  Other libraries - can be quick installed using the following commands in the pyviz environment:
-            pip install pyfolio (if you want to use empyrical library for easy stats computation)
-
+            
             conda install -c conda-forge tensorflow -y
 
             pip install -U scikit-learn
@@ -73,13 +72,6 @@ Possible addition: We then use NLP to examine how people have responded to crypt
 Using Open, Close, High, Low, Volume
 Price is target (y)
 
-
-What coins to add? - Pull from same api as project 1
-Monero
-Polygon 
-FTX Token
-Algorand
-Binance
 
 
 What models to use?
