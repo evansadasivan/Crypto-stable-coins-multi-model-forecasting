@@ -3,6 +3,8 @@ Northwestern Bootcamp Project 2 - Evan Sadasivan, Avinash Patel and Christine Na
 
 ## Installation Guide
 
+* ### Important to note that the stable coin an analysis will require you to open the jupyter lab file in Google Colab. The crypto analysis will be handled with the following Anaconda environment, while the Google Colab instructions will just require a few pip installs. 
+
 * ### Anaconda - conda environments 
             <!-- (After installing Anaconda we need to enable the terminal commands) -->
 
@@ -41,13 +43,18 @@ Northwestern Bootcamp Project 2 - Evan Sadasivan, Avinash Patel and Christine Na
 * ###  Other libraries - can be quick installed using the following commands in the pyviz environment:
             
             conda install -c conda-forge tensorflow -y
-
             pip install -U scikit-learn
             pip install imblearn
-
+            
+             <!-- (The following will need to be run in google co lab before importing anything and working with the machine learning models.) -->
+            
+            pip install "dask[complete]"
+            pip install hvplot
             pip install auto-ts
             pip install statsmodels
             pip install tscv
+            pip install python-dotenv
+            
 
 
 ## Overall Aim
