@@ -5,7 +5,7 @@ Northwestern Bootcamp Project 2 - Evan Sadasivan, Avinash Patel and Christine Na
 
 * ### Important to note that the stable coin analysis will require you to open the jupyter lab file in Google Colab. The crypto analysis will be handled with the following Anaconda environment, while the Google Colab instructions will just require a few pip installs. 
 
-* ### Anaconda - conda environments 
+* ### Anaconda - conda environment 
             <!-- (After installing Anaconda we need to enable the terminal commands) -->
 
             conda init bash
