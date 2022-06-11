@@ -97,7 +97,6 @@ Our crypto analysis employed two libraries to create different models. The first
 
 In order to evaluate how our models performed, we graphed the predicted vs actual close values at each stage (train, test and future). These graphs can be found in the sklearn graphs folder. We also examined their performance by looking at the mean squared error at each stage. The BTC and ETH models were fairly successful in learning to predict the close values. The LUNA model is much more difficult to tell because the values are so much lower. The mean squared error for the luna model for simulated future prediction was 1.29279. Of course, we would have predicted anyway that because of the recent crash in LUNA value, that the model would likely not do as well.
 
-To evaluate how each model did, we examined the mean squared error for each. Following this 
 * ## Stable Coin Analysis and Plots
 
 
