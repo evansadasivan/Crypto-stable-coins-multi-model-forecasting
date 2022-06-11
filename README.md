@@ -98,6 +98,128 @@ Our crypto analysis employed two libraries to create different models. The first
 In order to evaluate how our models performed, we graphed the predicted vs actual close values at each stage (train, test and future). These graphs can be found in the sklearn graphs folder. We also examined their performance by looking at the mean squared error at each stage. The BTC and ETH models were fairly successful in learning to predict the close values. The LUNA model is much more difficult to tell because the values are so much lower. The mean squared error for the luna model for simulated future prediction was 1.29279. Of course, we would have predicted anyway that because of the recent crash in LUNA value, that the model would likely not do as well.
 
 * ## Stable Coin Analysis and Plots
+Please keep in mind that stable coins ideally should remain constant in value. With this mindset the analysis of the results will make more sense. For example the RMSE score is the standard deviation of the residuals (prediction errors). Residuals are a measure of how far from the regression line data points are; RMSE is a measure of how spread out are these residuals. Due to the fact we only have 3 years worth of data and that for most of it the price has always remained close to $1.00 you will see that the RMSE scores are miniscule.
+
+* # Auto TS
+    Auto TS is a time series modeling library that consists of the aggregate of multiple different TS models for example:- ARIMA, VAR, Prophet, XGBOOST and many others. The claim to fame for Auto TS is that it allows you to run all TS models available in the library with 2 lines of code. The model will take into account rmse values and cross validation scores in order to determine the 'best model'. This 'best model' is then used to predict future forecasts. Auto TS does not require the data to be cleaned and formatted the way most models expect you to do. In the case of FB Prophet the data needs to be broken down a dataframe with ds and y columns. In the case of Auto TS the only expectation is that date be a column rather than the index in the dataframe and that the ts_column (time series column) = date, the target = y and sep=','. Make sure you split the data into train and test dataframes. In the jupyter lab file for stable coin analysis you will see the split is actual 70% to 30%. 70% of the data will be utilized as training and 30% will remain for back testing. Once we have tested our model we will utilize new data that is neither part of the train or test and see what kind of predictions the model will give. The following are the models that were evaluated for best RMSE score on the training data provided.
+
+    * # Augmented Dickey Fuller Test
+    Augmented Dickey Fuller Test is an updated version to the orginal DFuller test. This test analyzes whether or not a given data series is stationary or not. Stationary data is data that has no trend nor is it affected by seasonality. In stationary data, summary statistics like mean or variance remain constant. In order to make non stationary data stationary we must apply a lag difference. Differencing allows for the removal of series dependence on time i.e. it makes it stationary. In the case of our analysis BUSD, USDC, and USDT all required Lag-1 difference in order to become stationary. Stationary data is necessary for models like VAR and ARIMA. 
+
+    BUSD - AD Fuller Test - Lag-1 differencing required in order to make stationary. ![BUSD ADF](StableCoin-Resources/busd_adfuller.png)
+        
+    DAI - AD Fuller Test ![DIA ADF](StableCoin-Resources/dai_adfuller.png)
+
+    USDC - AD Fuller Test - Lag-1 differencing required in order to make stationary. ![USDC ADF](StableCoin-Resources/usdc_adfuller.png)
+
+    USDT - AD Fuller Test - Lag-1 differencing required in order to make stationary. ![USDT ADF](StableCoin-Resources/usdt_adfuller.png)
+
+
+    * # Vector AutoRegression (VAR)
+    Vector Autoregression (VAR) is a multivariate forecasting algorithm that is used when two or more time series influence each other.Vector Auto Regression (VAR) is bi-directional. VAR models are used in econometrics to determine the affect of policies on a system over time. This is done through an Impulse response function. This function will take data to see what are the impacts of one standard deviation 'shocks' to x and how inturn will these affect y. We can use the function to determine how many standard deviations or time steps will it take for the data to converge. 
+
+   BUSD - VAR model Impulse Response Function ![BUSD VAR Impulse Response Functions](StableCoin-Resources/busd_VAR.png)
+
+   DAI - VAR model Impulse Response Function ![DAI VAR Impulse Response Functions](StableCoin-Resources/dai_VAR.png)
+
+   USDC - VAR model Impulse Response Function ![USDC VAR Impulse Response Functions](StableCoin-Resources/usdc_VAR.png)
+
+   USDT - VAR model Impulse Response Function ![USDT VAR Impulse Response Functions](StableCoin-Resources/usdt_VAR.png)
+
+
+    * # FB Prophet
+    Model used for time series evaluation and forecasting. It works best with data that has seasonality. Due to the data not showing much signs of seasonality, Prophet fell short interms of predicting and RMSE value in comparison to other models.These plots will also show the predicted forecast for the next 3 months from March to June 2022.
+
+    BUSD - Prophet ![BUSD Prophet](StableCoin-Resources/busd_Prophet.png) 
+    
+    BUSD - Prophet Predictions ![BUSD Prophet Predictions](StableCoin-Resources/busd_ap.png)
+
+    DAI - Prophet ![DAI Prophet](StableCoin-Resources/dai_Prophet.png)
+
+    DAI - Prophet Predictions ![DAI Prophet Predictions](StableCoin-Resources/dai_a_p.png)
+
+    USDC - Prophet ![USDC Prophet](StableCoin-Resources/usdc_Prophet.png)
+
+    USDC - Prophet Predictions ![USDC Prophet Predictions](StableCoin-Resources/usdc_a_p.png)
+
+    USDT - Prophet ![USDT Prophet](StableCoin-Resources/usdt_Prophet.png)
+
+    USDT - Prophet Predictions ![USDT Prophet Predictions](StableCoin-Resources/usdt_a_p.png)
+
+    * # SARIMAX
+    The traditional ARIMA model prefers stationary data wheres as the updated Seasonal AutoRegressive Integrate Moving Average w/ eXogenous factors will take in non stationary data. In theory none of the data should show any seasonality, but in terms of RMSE(Root Mean Squared Error) the DAI stable coin works well with the SARIMAX model. This is further perplexing when you take into regard that DAI was the only stable coin that did not require a lag-1  difference in order to become stationary i.e. it was already stationary. 
+
+    BUSD - SARIMAX ![BUSD SARIMAX](StableCoin-Resources/busd_Sarimax.png)
+
+    DAI - SARIMAX ![DAI SARIMAX](StableCoin-Resources/dai_Sarimax.png)
+
+    USDC - SARIMAX ![USDC SARIMAX](StableCoin-Resources/usdc_Sarimax.png)
+
+    USDT - SARIMAX ![USDT SARIMAX](StableCoin-Resources/usdt_Sarimax.png)
+    * # XGBOOST
+    XGBoost is a decision-tree-based ensemble Machine Learning algorithm that uses a gradient boosting framework. In all 4 stable coins the XGBOOST RMSE value came back as infinity. This model will not be a good form analysis for these datasets. 
+
+    * # RMSE Scores
+
+    BUSD - RMSE Scores 
+    ---
+    ![BUSD RMSE](StableCoin-Resources/busd_rmse.png)
+
+    DAI - RMSE Scores 
+    ---
+    ![DAI RMSE](StableCoin-Resources/dai_rmse.png)
+
+    USDC - RMSE Scores 
+    ---
+    ![USDC RMSE](StableCoin-Resources/usdc_rmse.png)
+
+    USDT - RMSE Scores 
+    ---
+    ![USDT RMSE](StableCoin-Resources/usdt_rmse.png)
+
+    * # Backtesting Results
+    Based off the RMSE scores the following models were chosen as the 'best model' for the given coin:- BUSD, USDC, and USDT will utilize the VAR model while DAI will utilize auto SARIMAX model.
+
+    BUSD - VAR Test Results ![BUSD VAR Results](StableCoin-Resources/busd_backtest.png)
+
+    DAI - SARIMAX Test Results ![DAI SARIMAX Results](StableCoin-Resources/dai_backtest.png)
+
+    USDC - USDC Test Results ![USDC VAR Results](StableCoin-Resources/usdc_backtest.png)
+
+    USDT - USDT Test Results ![USDT VAR Results](StableCoin-Resources/usdt_backtest.png)
+        
+    * # Predictions on new data
+    Now we will utilize new data from March to June 2022 to make predictions and see how the match up to the actual values.
+
+    BUSD - Future Values 
+    ---
+    ![BUSD Future Results](StableCoin-Resources/busd_fv.png)
+    
+    BUSD - Future vs. Actual ![BUSD Future vs. Actual](StableCoin-Resources/busd_fv_a.png)
+
+    DAI - Future Values 
+    ---
+    ![DAI Future Results](StableCoin-Resources/dai_fv.png)
+
+    DAI - Future vs. Actual ![DAI Future vs. Actual](StableCoin-Resources/dai_fv_a.png)
+
+    USDC - Future Values 
+    ---
+    ![USDC Future Results](StableCoin-Resources/usdc_fv.png)
+
+    USDC - Future vs. Actual ![USDC Future vs. Actual](StableCoin-Resources/usdc_fv_a.png)
+
+    USDT - Future Values 
+    ---
+    ![USDT Future Results](StableCoin-Resources/usdt_fv.png)
+
+    USDT - Future vs. Actual ![USDT Future vs. Actual](StableCoin-Resources/usdt_fv_a.png)
+
+    * # Conclusions regarding Stable Coins
+    With the help of Auto TS and analysis over multiple models I believe there will stability in stable coins hence making them a valuable financial tool in the coming future. The overall analysis could be better with the help of larger data sets to help train the model as well as maybe trying any of the other models from Auto TS library. 
+
+
+
 
 
 
