@@ -1,6 +1,8 @@
 # Project-2
 Northwestern Bootcamp Project 2 - Evan Sadasivan, Avinash Patel and Christine Nashihibi
 
+## Presentation link - https://bit.ly/nwbootcamp-p2
+
 ## Installation Guide - Technologies utilized
 
 * ### Rapid API - Api Dojo - https://rapidapi.com/apidojo/api/investing-cryptocurrency-markets/
