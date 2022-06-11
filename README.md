@@ -162,6 +162,7 @@ Please keep in mind that stable coins ideally should remain constant in value. W
     * # RMSE Scores
 
     BUSD - RMSE Scores 
+    ---
     ![BUSD RMSE](StableCoin-Resources/busd_rmse.png)
 
     DAI - RMSE Scores 
