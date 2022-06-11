@@ -93,7 +93,11 @@ After having cleaned dataframes, depending on which model you utilize you must s
 
 
 * ## Crypto Analysis and Plots
+Our crypto analysis employed two libraries to create different models. The first library we used was scikit learn. Our goal was to set up a model that would learn to predict the daily close price of each crypto. The features we gave our models to look at were 'open','high','low', and 'volume'. To set up the models, we took our 3 years data for each of our three cryptos (BTC, ETH, LUNA) and used the following method to prepare our models. First, we split the data for each crypto into test and train splits. Using sklearn's predict feature, we predicted our target and then compared our predicted values against the actual close values for each day. Following this, we used the same steps on our test data. Finally, we looked at how our models would fare if they were tasked with predicting the future. To similute this future predicting, we gave the models an additional 30 days of data for each of our features and set it to predict the close values. 
 
+In order to evaluate how our models performed, we graphed the predicted vs actual close values at each stage (train, test and future). These graphs can be found in the sklearn graphs folder. We also examined their performance by looking at the mean squared error at each stage. The BTC and ETH models were fairly successful in learning to predict the close values. The LUNA model is much more difficult to tell because the values are so much lower. The mean squared error for the luna model for simulated future prediction was 1.29279. Of course, we would have predicted anyway that because of the recent crash in LUNA value, that the model would likely not do as well.
+
+To evaluate how each model did, we examined the mean squared error for each. Following this 
 * ## Stable Coin Analysis and Plots
 
 
